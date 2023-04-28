@@ -29,7 +29,7 @@ def get_request_data(request):
     except:
         print("path = request.split(" ")[1] | list index out of range!")
     try:
-        with open(f"./files{path}.png", "rb") as file:
+        with open(f"./files{path}.html", "rb") as file:
             response = file.read()
         return HDRS200.encode(encoding) + response
     except FileNotFoundError:
