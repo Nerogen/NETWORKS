@@ -13,7 +13,7 @@ def configurate_server():
             data = client_soc.recv(1024).decode(encoding)
             content = get_request_data(data)
             print(data)
-            with open("log.txt", "w") as file:
+            with open("log.txt", "a") as file:
                 file.write(data)
             client_soc.send(content)
             client_soc.shutdown(socket.SHUT_WR)
