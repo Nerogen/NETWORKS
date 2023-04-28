@@ -5,6 +5,11 @@ from Lab1.config import encoding, address
 post = """POST /auth HTTP/1.1\r\nContent-Type: text/html; charset=utf-8\r\n\r\nuserName=Ganesh&password=pass"""
 get = """GET /diagram.png HTTP/1.1\r\nContent-Type: text/html; charset=utf-8\r\n\r\n"""
 
+command_line_args = {
+    ("h", "help"): [],
+    ("g", "generic"): []
+}
+
 
 def main(argument):
     print(f"Argument: {argument}")
