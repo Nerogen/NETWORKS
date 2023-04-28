@@ -25,7 +25,7 @@ def configurate_server():
 def get_request_data(request):
     path = request.split(" ")[1]
     try:
-        with open(f"./files{path}.html", "rb") as file:
+        with open(f"./files{path}", "rb") as file:
             response = file.read()
         return HDRS200.encode(encoding) + response
     except FileNotFoundError:

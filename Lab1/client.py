@@ -4,7 +4,7 @@ import sys
 from Lab1.config import encoding, address
 
 post = """POST /auth HTTP/1.1\r\nContent-Type: text/html; charset=utf-8\r\n\r\nuserName=Ganesh&password=pass"""
-get = """GET /home HTTP/1.1\r\nContent-Type: text/html; charset=utf-8\r\n\r\n"""
+get = """GET /diagram.png HTTP/1.1\r\nContent-Type: text/html; charset=utf-8\r\n\r\n"""
 
 
 def main(argument):
@@ -17,4 +17,5 @@ def main(argument):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    # sys.argv[1]
+    main(1)
