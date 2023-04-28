@@ -1,5 +1,4 @@
 import socket
-import sys
 
 from Lab1.config import encoding, address
 

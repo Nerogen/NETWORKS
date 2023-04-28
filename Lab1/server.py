@@ -1,6 +1,6 @@
 import socket
 
-from Lab1.config import number_of_access_clients, encoding, address, HDRS200, HDRS404
+from Lab1.config import number_of_access_clients, encoding, address, HDRS200, HDRS404, HDRS403
 
 
 def configurate_server():
@@ -23,13 +23,19 @@ def configurate_server():
 
 
 def get_request_data(request):
-    path = request.split(" ")[1]
+    path = ""
     try:
-        with open(f"./files{path}", "rb") as file:
+        path = request.split(" ")[1]
+    except:
+        print("path = request.split(" ")[1] | list index out of range!")
+    try:
+        with open(f"./files{path}.png", "rb") as file:
             response = file.read()
         return HDRS200.encode(encoding) + response
     except FileNotFoundError:
         return (HDRS404 + "404 | Page not found!").encode(encoding)
+    except PermissionError:
+        return (HDRS403 + "403 | Permission denied!").encode(encoding)
 
 
 def main():
