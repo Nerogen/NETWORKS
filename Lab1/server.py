@@ -29,9 +29,12 @@ def get_request_data(request):
     except:
         print("path = request.split(" ")[1] | list index out of range!")
     try:
-        with open(f"./files{path}.html", "rb") as file:
-            response = file.read()
-        return HDRS200.encode(encoding) + response
+        if "png" in path:
+            return HDRS200.encode(encoding)
+        else:
+            with open(f"./files{path}", "rb") as file:
+                response = file.read()
+            return HDRS200.encode(encoding) + response
     except FileNotFoundError:
         return (HDRS404 + "404 | Page not found!").encode(encoding)
     except PermissionError:

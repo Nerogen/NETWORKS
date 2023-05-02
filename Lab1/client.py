@@ -1,43 +1,48 @@
 import socket
+import sys
 
-from Lab1.config import encoding, address
+from config import address, encoding
+
+http_ver = "HTTP/1.1"
 
 post = """POST /auth HTTP/1.1\r\nContent-Type: text/html; charset=utf-8\r\n\r\nuserName=Ganesh&password=pass"""
 get = """GET /home HTTP/1.1\r\nContent-Type: text/html; charset=utf-8\r\n\r\n"""
 
-command_line_args = {
-    ("h", "help"): [],
-    ("g", "generic"): [],
-    "Host": [],
-    "Content-Type": [],
-    "Connection": [],
-    "charset=utf-8": [],
-    "Cache-Control": [],
-    "sec-ch-ua": [],
-    "sec-ch-ua-mobile": [],
-    "sec-ch-ua-platform": [],
-    "Upgrade-Insecure-Requests": [],
-    "User-Agent": [],
-    "Accept": [],
-    "Sec-Fetch-Site": [],
-    "Sec-Fetch-Mode": [],
-    "Sec-Fetch-User": [],
-    "Sec-Fetch-Dest": [],
-    "Accept-Encoding": [],
-    "Accept-Language": [],
-    "Cookie": []
+methods = [
+    "GET",
+    "POST",
+    "OPTIONS"
+]
+
+options = {
+    "-me": "",
+    "-pa": "",
+    "-he": "",
+    "-bo": ""
 }
 
 
+def parse_options(args):
+    print(*args, sep=' ')
+    for key in options.keys():
+        if key in args:
+            options[args[args.index(key)]] = args[args.index(key) + 1]
+
+
+def get_request() -> str:
+    return f"{options['-me']} {options['-pa']} {http_ver}\r\n{options['-he']}\r\n\r\n{options['-bo']}"
+
+
 def main(argument):
-    print(f"Argument: {argument}")
+    parse_options(argument)
+    request = get_request()
+    # print(request)
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect(address)
-    content = f"{get}".encode(encoding)
+    content = f"{request}".encode(encoding)
     client.send(content)
     print(client.recv(1024).decode(encoding))
 
 
 if __name__ == '__main__':
-    # sys.argv[1]
-    main(1)
+    main(sys.argv[1:])
